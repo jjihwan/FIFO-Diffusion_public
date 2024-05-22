@@ -12,21 +12,8 @@
 
 </div>
 
-## 📽️ Generated Videos (See <a href="https://jjihwan.github.io/projects/FIFO-Diffusion">more long samples</a>)
+## 📽️ See <a href="https://jjihwan.github.io/projects/FIFO-Diffusion"> for samples</a>
 
-<div align="center">
-
-<img src="https://github.com/jjihwan/FIFO-Diffusion/assets/63445348/95b2f22d-9ed6-45a7-b791-669147c95d51">
-
-"An astronaut floating in space, high quality, 4K resolution."
-
-100 frames, 320 X 512 resolution
-
-<img src="https://github.com/jjihwan/FIFO-Diffusion/assets/63445348/9fe21f68-c998-46e6-94c3-c2884569f019">
-
-"A colony of penguins waddling on an Antarctic ice sheet, 4K, ultra HD."
-
-100 frames, 320 X 512 resolution
 </div>
 
 ## Clone our repository
