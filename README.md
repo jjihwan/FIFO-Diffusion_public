@@ -12,7 +12,7 @@
 
 </div>
 
-## 📽️ See <a href="https://jjihwan.github.io/projects/FIFO-Diffusion"> for samples</a>
+## 📽️ See video samples in our <a href="https://jjihwan.github.io/projects/FIFO-Diffusion"> project page</a>!
 
 </div>
 
