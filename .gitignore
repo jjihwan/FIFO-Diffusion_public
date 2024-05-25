@@ -1,0 +1,15 @@
+# results
+results/
+
+# checkpoints
+videocrafter_models/
+zeroscope_models/
+
+# venvs
+.fifo
+.sora
+
+# others
+taming
+.DS_Store
+__pycache__

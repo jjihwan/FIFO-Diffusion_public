@@ -1,0 +1,16 @@
+torch==2.0.1
+torchvision==0.15.2
+diffusers==0.24.0
+accelerate==0.25.0
+transformers==4.36.2
+pytorch_lightning==2.1.3
+omegaconf
+imageio
+einops
+av
+moviepy
+kornia
+xformers
+open_clip_torch
+opencv_python
+decord
