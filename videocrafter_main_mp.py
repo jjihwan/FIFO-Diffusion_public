@@ -110,9 +110,9 @@ def main(args):
             output_path = output_dir+f"/{prompt[:100]}"
 
         if args.use_mp4:
-            imageio.mimsave(output_path+".mp4", video_frames[-args.new_video_length:], fps=10)
+            imageio.mimsave(output_path+".mp4", video_frames[-args.new_video_length:], fps=args.output_fps)
         else:
-            imageio.mimsave(output_path+".gif", video_frames[-args.new_video_length:], duration=100) 
+            imageio.mimsave(output_path+".gif", video_frames[-args.new_video_length:], duration=int(1000/args.output_fps)) 
     
 
 
@@ -138,6 +138,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_gpus", type=int, default=1, help="number of gpus")
     parser.add_argument("--output_dir", type=str, default=None, help="custom output directory")
     parser.add_argument("--use_mp4", action="store_true", default=False, help="use mp4 format for the output video")
+    parser.add_argument("--output_fps", type=int, default=10, help="fps of the output video")
 
     args = parser.parse_args()
 
