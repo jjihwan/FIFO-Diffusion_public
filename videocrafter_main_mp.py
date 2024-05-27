@@ -16,27 +16,23 @@ import torch.multiprocessing as mp
 
 def set_directory(args, prompt):
     if args.output_dir is None:
-        output_dir = f"results/videocraft_fifo/random_noise/{prompt}"
-        if args.eta != 0.0:
+        output_dir = f"results/videocraft_v2_fifo/random_noise/{prompt[:100]}"
+        if args.eta != 1.0:
             output_dir += f"/eta{args.eta}"
 
         if args.new_video_length != 100:
             output_dir += f"/{args.new_video_length}frames"
-        if args.lookahead_denoising:
-            output_dir = output_dir.replace(f"{prompt}", f"{prompt}/lookahead_denoising")
-        if args.num_partitions != 1:
-            output_dir = output_dir.replace(f"{prompt}", f"{prompt}/{args.num_partitions}partitions")
+        if not args.lookahead_denoising:
+            output_dir = output_dir.replace(f"{prompt[:100]}", f"{prompt[:100]}/no_lookahead_denoising")
+        if args.num_partitions != 4:
+            output_dir = output_dir.replace(f"{prompt[:100]}", f"{prompt[:100]}/n={args.num_partitions}")
         if args.video_length != 16:
-            output_dir = output_dir.replace(f"{prompt}", f"{prompt}/{args.video_length}frames")
+            output_dir = output_dir.replace(f"{prompt[:100]}", f"{prompt[:100]}/f={args.video_length}")
 
-        latents_dir = f"results/videocraft_fifo/latents/{args.num_inference_steps}steps/{prompt}/eta{args.eta}"
-
-        if "v2" in args.ckpt_path:
-            output_dir = output_dir.replace("videocraft_fifo", "videocraft_v2_fifo")
-            latents_dir = latents_dir.replace("videocraft_fifo", "videocraft_v2_fifo")
     else:
         output_dir = args.output_dir
-        latents_dir = os.path.join(output_dir, "latents")
+
+    latents_dir = f"results/videocraft_v2_fifo/latents/{args.num_inference_steps}steps/{prompt[:100]}/eta{args.eta}"
 
     print("The results will be saved in", output_dir)
     print("The latents will be saved in", latents_dir)
@@ -111,7 +107,7 @@ def main(args):
         if args.output_dir is None:
             output_path = output_dir+"/fifo"
         else:
-            output_path = output_dir+f"/{prompt}"
+            output_path = output_dir+f"/{prompt[:100]}"
 
         if args.use_mp4:
             imageio.mimsave(output_path+".mp4", video_frames[-args.new_video_length:], fps=10)
