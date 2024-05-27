@@ -15,24 +15,24 @@ from lvdm.models.samplers.ddim import DDIMSampler
 
 
 def set_directory(args, prompt):
-    output_dir = f"results/videocraft_fifo/random_noise/{prompt}"
-    if args.eta != 0.0:
-        output_dir += f"/eta{args.eta}"
+    if args.output_dir is None:
+        output_dir = f"results/videocraft_v2_fifo/random_noise/{prompt}"
+        if args.eta != 1.0:
+            output_dir += f"/eta{args.eta}"
 
-    if args.new_video_length != 100:
-        output_dir += f"/{args.new_video_length}frames"
-    if args.lookahead_denoising:
-        output_dir = output_dir.replace(f"{prompt}", f"{prompt}/lookahead_denoising")
-    if args.num_partitions != 1:
-        output_dir = output_dir.replace(f"{prompt}", f"{prompt}/{args.num_partitions}partitions")
-    if args.video_length != 16:
-        output_dir = output_dir.replace(f"{prompt}", f"{prompt}/{args.video_length}frames")
+        if args.new_video_length != 100:
+            output_dir += f"/{args.new_video_length}frames"
+        if not args.lookahead_denoising:
+            output_dir = output_dir.replace(f"{prompt}", f"{prompt}/no_lookahead_denoising")
+        if args.num_partitions != 4:
+            output_dir = output_dir.replace(f"{prompt}", f"{prompt}/n={args.num_partitions}")
+        if args.video_length != 16:
+            output_dir = output_dir.replace(f"{prompt}", f"{prompt}/f={args.video_length}")
 
-    latents_dir = f"results/videocraft_fifo/latents/{args.num_inference_steps}steps/{prompt}/eta{args.eta}"
+    else:
+        output_dir = args.output_dir
 
-    if "v2" in args.ckpt_path:
-        output_dir = output_dir.replace("videocraft_fifo", "videocraft_v2_fifo")
-        latents_dir = latents_dir.replace("videocraft_fifo", "videocraft_v2_fifo")
+    latents_dir = f"results/videocraft_v2_fifo/latents/{args.num_inference_steps}steps/{prompt}/eta{args.eta}"
 
     print("The results will be saved in", output_dir)
     print("The latents will be saved in", latents_dir)
@@ -99,12 +99,19 @@ def main(args):
         video_frames = fifo_ddim_sampling(
             args, model, cond, noise_shape, ddim_sampler, args.unconditional_guidance_scale, output_dir=output_dir, latents_dir=latents_dir, save_frames=args.save_frames
         )
-        imageio.mimsave(output_dir+"/fifo.gif", video_frames[-args.new_video_length:], duration=100) 
+        if args.output_dir is None:
+            output_path = output_dir+"/fifo"
+        else:
+            output_path = output_dir+f"/{prompt}"
+
+        if args.use_mp4:
+            imageio.mimsave(output_path+".mp4", video_frames[-args.new_video_length:], fps=10)
+        else:
+            imageio.mimsave(output_path+".gif", video_frames[-args.new_video_length:], duration=100) 
 
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("--videocrafter_ver", "-ver", type=int, default=2, help="version of videocrafter")
     parser.add_argument("--ckpt_path", type=str, default='videocrafter_models/base_512_v2/model.ckpt', help="checkpoint path")
     parser.add_argument("--config", type=str, default="configs/inference_t2v_512_v2.0.yaml", help="config (yaml) path")
     parser.add_argument("--seed", type=int, default=321)
@@ -122,12 +129,10 @@ if __name__ == "__main__":
     parser.add_argument("--unconditional_guidance_scale", type=float, default=12.0, help="prompt classifier-free guidance")
     parser.add_argument("--lookahead_denoising", "-ld", action="store_false", default=True)
     parser.add_argument("--eta", "-e", type=float, default=1.0)
+    parser.add_argument("--output_dir", type=str, default=None, help="custom output directory")
+    parser.add_argument("--use_mp4", action="store_true", default=False, help="use mp4 format for the output video")
 
     args = parser.parse_args()
-
-    if args.videocrafter_ver == 1:
-        args.ckpt_path = args.ckpt_path.replace("v2", "v1")
-        args.config = args.config.replace("v2", "v1")
 
     args.num_inference_steps = args.video_length * args.num_partitions
 
