@@ -4,6 +4,7 @@ results/
 # checkpoints
 videocrafter_models/
 zeroscope_models/
+opensoraplan_models/
 
 # venvs
 .fifo
@@ -13,3 +14,5 @@ zeroscope_models/
 taming
 .DS_Store
 __pycache__
+opensora_fifo
+Open-Sora-Plan

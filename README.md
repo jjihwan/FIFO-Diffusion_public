@@ -92,11 +92,13 @@ source .sora/bin/activate
 
 cd Open-Sora-Plan
 pip install -e .
+
+pip install deepspeed
 ```
 
 ### 2. Run with Open-Sora Plan
 ```
-sh scripts/opensora_fifo_ddpm.sh
+sh scripts/opensora_fifo.sh
 ```
 
 ## ☀️ Start with <a href="https://huggingface.co/cerspense/zeroscope_v2_576w">zeroscope</a> (Comming Soon)
@@ -114,6 +116,10 @@ pip install -r requirements.txt
 mkdir zeroscope_models         # directory where the model will be stored
 python3 zeroscope_main.py
 ```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=jjihwan/FIFO-Diffusion_public&type=Date)](https://star-history.com/#jjihwan/FIFO-Diffusion_public&Date)
 
 ## 😆 Citation
 ```
