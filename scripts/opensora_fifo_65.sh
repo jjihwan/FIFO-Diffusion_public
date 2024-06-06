@@ -1,0 +1,15 @@
+CUDA_VISIBLE_DEVICES=0 python opensora_fifo/sample/sample_fifo.py \
+    --model_path LanguageBind/Open-Sora-Plan-v1.1.0 \
+    --text_encoder_name DeepFloyd/t5-v1_1-xxl \
+    --text_prompt prompts/test_prompts_opensora.txt \
+    --ae CausalVAEModel_4x8x8 \
+    --version 65x512x512 \
+    --sample_method DDPM \
+    --fps 24 \
+    --guidance_scale 7.5 \
+    --enable_tiling \
+    --cache_dir "opensoraplan_models/" \
+    --num_frames 65 \
+    --video_length 17 \
+    --new_video_length 100 \
+    --num_partitions 8

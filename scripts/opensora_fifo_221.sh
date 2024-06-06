@@ -1,0 +1,15 @@
+python opensora_fifo/sample/sample_fifo.py \
+    --model_path LanguageBind/Open-Sora-Plan-v1.1.0 \
+    --text_encoder_name DeepFloyd/t5-v1_1-xxl \
+    --text_prompt prompts/test_prompts_opensora.txt \
+    --ae CausalVAEModel_4x8x8 \
+    --version 221x512x512 \
+    --sample_method DDPM \
+    --fps 24 \
+    --guidance_scale 7.5 \
+    --enable_tiling \
+    --cache_dir "opensoraplan_models/" \
+    --num_frames 221 \
+    --video_length 56 \
+    --new_video_length 256 \
+    --num_partitions 4

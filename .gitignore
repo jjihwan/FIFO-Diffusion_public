@@ -14,5 +14,4 @@ opensoraplan_models/
 taming
 .DS_Store
 __pycache__
-opensora_fifo
 Open-Sora-Plan

@@ -17,22 +17,26 @@
 
 <img src="https://github.com/jjihwan/FIFO-Diffusion_public/assets/63445348/aafafa52-5ddf-4093-9d29-681fe469e447">
 
-"An astronaut floating in space, high quality, 4K resolution."
+"An astronaut floating in space, high quality, 4K resolution.", 
 
-100 frames, 320 X 512 resolution
+VideoCrafter2, 100 frames, 320 X 512 resolution
 
-<img src="https://github.com/jjihwan/FIFO-Diffusion_public/assets/63445348/b198c5bb-5104-4a57-a433-ddadfa7ec713">
+<img src="assets/opensora_fifo.gif">
 
-"A colony of penguins waddling on an Antarctic ice sheet, 4K, ultra HD."
+"A corgi vlogging itself in tropical Maui."
 
-100 frames, 320 X 512 resolution
+Open-Sora Plan, 512 X 512 resolution
+
+
 </div>
 
 
 ## News 📰
-**[2024.05.25]** 🥳🥳🥳 We are thrilled to present our official PyTorch implementation for FIFO-Diffusion. We are releasing the code based on VideoCrafter2.
+**[2024.06.06]** 🔥🔥🔥 We are excited to release the code for **Open-Sora Plan v1.1.0**. Thanks to the authors for open-sourcing the awesome baseline!
 
-**[2024.05.19]**  Our paper, *FIFO-Diffusion: Generating Infinite Videos from Text without Training*, has been archived.
+**[2024.05.25]** 🥳🥳🥳 We are thrilled to present our official PyTorch implementation for FIFO-Diffusion. We are releasing the code based on **VideoCrafter2**.
+
+**[2024.05.19]** 🚀🚀🚀 Our paper, *FIFO-Diffusion: Generating Infinite Videos from Text without Training*, has been archived.
 
 ## Clone our repository
 ```
@@ -80,7 +84,10 @@ Pull requests are welcome! 🤓
 python3 videocrafter_main_mp.py --num_gpus 8 --save_frames
 ```
 
-## ☀️ Start with <a href="https://github.com/PKU-YuanGroup/Open-Sora-Plan">Open-Sora Plan</a> (Comming Soon)
+## ☀️ Start with <a href="https://github.com/PKU-YuanGroup/Open-Sora-Plan">Open-Sora Plan v1.1.0</a>
+For simple implementation, we use the DDPM scheduler for Open-Sora Plan v1.1.0.
+Since Open-Sora Plan recommends using the PNDM scheduler, the results might not show the optimal performance.
+Multi-processing (parallelizable inference) and adapting PNDM scheduler are our next plan.
 
 ### 1. Environment Setup ⚙️ (python==3.10.14 recommended)
 ```
@@ -96,10 +103,23 @@ pip install -e .
 pip install deepspeed
 ```
 
-### 2. Run with Open-Sora Plan
+### 2. Run with Open-Sora Plan v1.1.0, 65x512x512 model
+Requires about 40GB VRAM with A6000.
+It uses *n=8* by default.
 ```
-sh scripts/opensora_fifo.sh
+sh scripts/opensora_fifo_65.sh
 ```
+
+### 3. Run with Open-Sora Plan v1.1.0, 221x512x512 model
+Requires about 40GB VRAM with A6000.
+It uses *n=4* by default.
+```
+sh scripts/opensora_fifo_221.sh
+```
+
+### 4. Distributed Parallel inference with Open-Sora Plan (WIP)
+Comming Soon.
+
 
 ## ☀️ Start with <a href="https://huggingface.co/cerspense/zeroscope_v2_576w">zeroscope</a> (Comming Soon)
 
@@ -116,6 +136,7 @@ pip install -r requirements.txt
 mkdir zeroscope_models         # directory where the model will be stored
 python3 zeroscope_main.py
 ```
+
 
 ## Star History
 
@@ -134,4 +155,4 @@ python3 zeroscope_main.py
 
 ## 🤓 Acknowledgements
 Our codebase builds on [VideoCrafter](https://github.com/AILab-CVC/VideoCrafter), [Open-Sora Plan](https://github.com/PKU-YuanGroup/Open-Sora-Plan), [zeroscope](https://huggingface.co/cerspense/zeroscope_v2_576w). 
-Thanks the authors for sharing their awesome codebases!
+Thanks to the authors for sharing their awesome codebases!
