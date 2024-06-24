@@ -84,6 +84,9 @@ Pull requests are welcome! 🤓
 python3 videocrafter_main_mp.py --num_gpus 8 --save_frames
 ```
 
+### 3.3. Multi-prompt generation
+Comming soon.
+
 ## ☀️ Start with <a href="https://github.com/PKU-YuanGroup/Open-Sora-Plan">Open-Sora Plan v1.1.0</a>
 For simple implementation, we use the DDPM scheduler for Open-Sora Plan v1.1.0.
 Since Open-Sora Plan recommends using the PNDM scheduler, the results might not show the optimal performance.
@@ -118,24 +121,7 @@ sh scripts/opensora_fifo_221.sh
 ```
 
 ### 4. Distributed Parallel inference with Open-Sora Plan (WIP)
-Comming Soon.
-
-
-## ☀️ Start with <a href="https://huggingface.co/cerspense/zeroscope_v2_576w">zeroscope</a> (Comming Soon)
-
-### 1. Environment Setup ⚙️ (python==3.10.14 recommended)
-```
-python3 -m venv .fifo
-source .fifo/bin/activate
-
-pip install -r requirements.txt
-```
-
-### 2. Run with zeroscope
-```
-mkdir zeroscope_models         # directory where the model will be stored
-python3 zeroscope_main.py
-```
+Comming soon.
 
 
 ## Star History
