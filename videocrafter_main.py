@@ -1,17 +1,15 @@
-from argparse import ArgumentParser
-from omegaconf import OmegaConf
 import os
 import torch
 import numpy as np
 from PIL import Image
-import imageio
-
+from argparse import ArgumentParser
+from omegaconf import OmegaConf
 from pytorch_lightning import seed_everything
-
-from scripts.evaluation.funcs import load_model_checkpoint, load_prompts, load_image_batch, get_filelist, save_gif
-from scripts.evaluation.funcs import base_ddim_sampling, fifo_ddim_sampling
+import imageio  # Added import
+from scripts.evaluation.funcs import load_model_checkpoint, load_prompts, save_gif, base_ddim_sampling, fifo_ddim_sampling
 from utils.utils import instantiate_from_config
 from lvdm.models.samplers.ddim import DDIMSampler
+from realesrgan_upscale import load_realesrgan_model, upscale_image_with_realesrgan
 
 
 def set_directory(args, prompt):
@@ -99,15 +97,13 @@ def main(args):
         video_frames = fifo_ddim_sampling(
             args, model, cond, noise_shape, ddim_sampler, args.unconditional_guidance_scale, output_dir=output_dir, latents_dir=latents_dir, save_frames=args.save_frames
         )
-        if args.output_dir is None:
-            output_path = output_dir+"/fifo"
-        else:
-            output_path = output_dir+f"/{prompt[:100]}"
 
-        if args.use_mp4:
-            imageio.mimsave(output_path+".mp4", video_frames[-args.new_video_length:], fps=args.output_fps)
-        else:
-            imageio.mimsave(output_path+".gif", video_frames[-args.new_video_length:], duration=int(1000/args.output_fps)) 
+        # 업스케일
+        realesrgan_model = load_realesrgan_model('/workspace/FIFO-Diffusion_esrgan/Real-ESRGAN/weights/RealESRGAN_x4plus.pth')#your pth path
+        upscaled_video_frames = [np.array(upscale_image_with_realesrgan(frame, realesrgan_model)) for frame in video_frames]
+
+        output_path = os.path.join(output_dir, f"{prompt[:100]}.mp4")
+        imageio.mimsave(output_path, upscaled_video_frames[-args.new_video_length:], fps=args.output_fps)
 
 
 if __name__ == "__main__":
@@ -130,7 +126,6 @@ if __name__ == "__main__":
     parser.add_argument("--lookahead_denoising", "-ld", action="store_false", default=True)
     parser.add_argument("--eta", "-e", type=float, default=1.0)
     parser.add_argument("--output_dir", type=str, default=None, help="custom output directory")
-    parser.add_argument("--use_mp4", action="store_true", default=False, help="use mp4 format for the output video")
     parser.add_argument("--output_fps", type=int, default=10, help="fps of the output video")
 
     args = parser.parse_args()
@@ -140,6 +135,3 @@ if __name__ == "__main__":
     seed_everything(args.seed)
 
     main(args)
-
-
-#수정됨
