@@ -140,3 +140,6 @@ if __name__ == "__main__":
     seed_everything(args.seed)
 
     main(args)
+
+
+#수정됨
