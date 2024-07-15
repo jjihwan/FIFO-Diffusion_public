@@ -11,6 +11,6 @@ av
 moviepy
 kornia
 xformers
-open_clip_torch
+open_clip_torch<=2.24.0
 opencv_python
 decord
