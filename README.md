@@ -1,4 +1,4 @@
-## FIFO-Diffusion: Generating Infinite Videos from Text without Training
+## FIFO-Diffusion: Generating Infinite Videos from Text without Training (NeurIPS 2024)
 <div align="center">
 
 <p>
@@ -32,6 +32,8 @@ Open-Sora Plan, 512 X 512 resolution
 
 
 ## News 📰
+**[2024.09.26]** 👏👏👏 Our paper has been accepted to NeurIPS 2024!!!
+
 **[2024.06.06]** 🔥🔥🔥 We are excited to release the code for **Open-Sora Plan v1.1.0**. Thanks to the authors for open-sourcing the awesome baseline!
 
 **[2024.05.25]** 🥳🥳🥳 We are thrilled to present our official PyTorch implementation for FIFO-Diffusion. We are releasing the code based on **VideoCrafter2**.
