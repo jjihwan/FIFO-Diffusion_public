@@ -87,7 +87,7 @@ python3 videocrafter_main_mp.py --num_gpus 8 --save_frames
 ```
 
 ### 3.3. Multi-prompt generation
-Comming soon.
+Coming soon.
 
 ## ☀️ Start with <a href="https://github.com/PKU-YuanGroup/Open-Sora-Plan">Open-Sora Plan v1.1.0</a>
 For simple implementation, we use the DDPM scheduler for Open-Sora Plan v1.1.0.
