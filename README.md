@@ -132,10 +132,10 @@ Comming soon.
 
 ## 😆 Citation
 ```
-@article{kim2024fifo,
+@inproceedings{kim2024fifo,
 	title = {FIFO-Diffusion: Generating Infinite Videos from Text without Training},
 	author = {Jihwan Kim and Junoh Kang and Jinyoung Choi and Bohyung Han},
-	journal = {arXiv preprint arXiv:2405.11473},
+	booktitle = {NeurIPS},
 	year = {2024},
 }
 ```
